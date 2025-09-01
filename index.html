@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>翠々亭｜表札・看板の専門店</title>
+  <meta name="description" content="翠々亭（すいすいてい）は、手書き文字にこだわる表札・石刻の工房です。基本は木製表札の製作。ほかに墓石の文字入れ、神社の寄進者名刻字（石材は別業者）にも対応します。"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{ --brand:#10b981; }
+    body{ font-family: 'Noto Sans JP', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+    .jp-serif{ font-family: 'Noto Serif JP', serif; }
+    .stroke-title{ text-shadow: 0 1px 0 rgba(0,0,0,.15); }
+  </style>
+</head>
+<body class="bg-neutral-50 text-neutral-800">
+  <!-- Header -->
+  <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-neutral-200">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl bg-emerald-500/90 grid place-items-center text-white font-bold jp-serif">翠</div>
+        <div class="leading-tight">
+          <p class="font-bold jp-serif text-lg tracking-wide">翠々亭</p>
+          <p class="text-xs text-neutral-500">表札・石刻の専門店</p>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#works" class="hover:text-emerald-600">制作例</a>
+        <a href="#lineup" class="hover:text-emerald-600">ラインナップ</a>
+        <a href="#order" class="hover:text-emerald-600">ご注文の流れ</a>
+        <a href="#faq" class="hover:text-emerald-600">よくある質問</a>
+        <a href="#access" class="hover:text-emerald-600">アクセス</a>
+        <a href="#contact" class="px-3 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700">お問い合わせ</a>
+      </nav>
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg border border-neutral-300" aria-label="メニュー">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div id="mobileNav" class="hidden md:hidden border-t border-neutral-200 bg-white">
+      <div class="max-w-6xl mx-auto px-4 py-3 grid gap-2 text-sm">
+        <a href="#works" class="py-2">制作例</a>
+        <a href="#lineup" class="py-2">ラインナップ</a>
+        <a href="#order" class="py-2">ご注文の流れ</a>
+        <a href="#faq" class="py-2">よくある質問</a>
+        <a href="#access" class="py-2">アクセス</a>
+        <a href="#contact" class="py-2">お問い合わせ</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="top" class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(16,185,129,0.15),transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(16,185,129,0.2),transparent_50%)]"></div>
+    <div class="max-w-6xl mx-auto px-4 py-20 md:py-28 relative">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h1 class="jp-serif text-3xl md:text-5xl font-bold leading-tight stroke-title">
+            手書きのぬくもりを込めた、
+            <span class="text-emerald-700">唯一無二</span>の表札を。
+          </h1>
+          <p class="mt-6 text-neutral-700">
+            翠々亭（すいすいてい）は、<strong>手書き文字</strong>を活かした表札・石刻の工房です。基本は木製表札の製作。ほかに<strong>墓石の文字入れ</strong>、<strong>神社の寄進者名刻字</strong>（※石材本体は提携業者）も承ります。<strong>書体は職人手書きのため指定不可</strong>です。
+          </p>
+          <div class="mt-8 flex gap-3">
+            <a href="#lineup" class="px-5 py-3 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700">ラインナップを見る</a>
+            <a href="#contact" class="px-5 py-3 rounded-xl border border-neutral-300 hover:bg-neutral-50">見積りを依頼</a>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="aspect-[4/3] w-full rounded-2xl shadow-xl overflow-hidden bg-white border border-neutral-200">
+            <img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=1600&auto=format&fit=crop" alt="表札の雰囲気写真（仮）" class="w-full h-full object-cover"/>
+          </div>
+          <div class="absolute -bottom-6 -left-6 bg-white/90 border border-emerald-200 rounded-2xl p-4 shadow-md w-64">
+            <p class="text-sm text-neutral-600">人気：<span class="font-medium">ウォルナット × 漆黒真鍮</span></p>
+            <p class="text-xs text-neutral-500 mt-1">耐候クリア仕上げ / 屋外OK</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Works -->
+  <section id="works" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="jp-serif text-2xl md:text-3xl font-bold">制作例</h2>
+      <p class="mt-3 text-neutral-600">過去の制作イメージです。実物は質感・色味が異なる場合があります。</p>
+      <div class="mt-8 grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+        <figure class="rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow-sm">
+          <img src="https://images.unsplash.com/photo-1560179707-f14e90ef15b9?q=80&w=1600&auto=format&fit=crop" alt="天然木表札" class="w-full h-44 object-cover"/>
+          <figcaption class="p-4 text-sm">
+            <div class="font-medium">天然木 × 手書き揮毫</div>
+            <div class="text-neutral-500">オイル仕上げ / 屋外</div>
+          </figcaption>
+        </figure>
+        <figure class="rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow-sm">
+          <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?q=80&w=1600&auto=format&fit=crop" alt="石刻（墓石）" class="w-full h-44 object-cover"/>
+          <figcaption class="p-4 text-sm">
+            <div class="font-medium">墓石の文字入れ</div>
+            <div class="text-neutral-500">追記彫り / 現地作業可</div>
+          </figcaption>
+        </figure>
+        <figure class="rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow-sm">
+          <img src="https://images.unsplash.com/photo-1493857671505-72967e2e2760?q=80&w=1600&auto=format&fit=crop" alt="神社の寄進者名刻字" class="w-full h-44 object-cover"/>
+          <figcaption class="p-4 text-sm">
+            <div class="font-medium">神社の寄進者名刻字</div>
+            <div class="text-neutral-500">石材は提携業者</div>
+          </figcaption>
+        </figure>
+        <figure class="rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow-sm">
+          <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?q=80&w=1600&auto=format&fit=crop" alt="和風木製" class="w-full h-44 object-cover"/>
+          <figcaption class="p-4 text-sm">
+            <div class="font-medium">杉無垢 × 焼き仕上げ</div>
+            <div class="text-neutral-500">屋外 / 防水塗装</div>
+          </figcaption>
+        </figure>
+        <figure class="rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow-sm">
+          <img src="https://images.unsplash.com/photo-1511953936316-6ad8b67b49bb?q=80&w=1600&auto=format&fit=crop" alt="ミニ看板" class="w-full h-44 object-cover"/>
+          <figcaption class="p-4 text-sm">
+            <div class="font-medium">店舗ミニ看板</div>
+            <div class="text-neutral-500">両面 / 自立タイプ</div>
+          </figcaption>
+        </figure>
+        <figure class="rounded-2xl overflow-hidden border border-neutral-200 bg-white shadow-sm">
+          <img src="https://images.unsplash.com/photo-1511953936316-6ad8b67b49bb?q=80&w=1600&auto=format&fit=crop" alt="和紙サイン" class="w-full h-44 object-cover"/>
+          <figcaption class="p-4 text-sm">
+            <div class="font-medium">和紙 × 透明アクリル</div>
+            <div class="text-neutral-500">室内 / 案内サイン</div>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lineup -->
+  <section id="lineup" class="py-16 md:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="jp-serif text-2xl md:text-3xl font-bold">ラインナップ</h2>
+      <p class="mt-3 text-neutral-600">代表的な取扱と目安価格です（税別）。サイズ・加工・数量により変動します。<strong>書体は職人手書きのため指定不可</strong>です。</p>
+      <div class="mt-8 grid md:grid-cols-3 gap-5">
+        <!-- 木製表札 -->
+        <div class="rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col">
+          <div class="p-4 border-b bg-neutral-50">
+            <h3 class="font-semibold">木製表札</h3>
+            <p class="text-sm text-neutral-500">杉/ヒノキ（150×150mm 目安）</p>
+          </div>
+          <div class="p-4 text-sm grow">
+            <ul class="list-disc pl-5 space-y-1 text-neutral-700">
+              <li>手書き揮毫 → 彫刻/塗り</li>
+              <li>屋外用クリア塗装</li>
+              <li>ビス/強力両面テープ付属</li>
+            </ul>
+          </div>
+          <div class="px-4 pb-4 mt-auto">
+            <div class="text-2xl font-bold text-emerald-700">¥8,800〜</div>
+          </div>
+        </div>
+        <!-- 墓石の文字入れ -->
+        <div class="rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col">
+          <div class="p-4 border-b bg-neutral-50">
+            <h3 class="font-semibold">墓石の文字入れ</h3>
+            <p class="text-sm text-neutral-500">戒名・法名・建立者名 など</p>
+          </div>
+          <div class="p-4 text-sm grow">
+            <ul class="list-disc pl-5 space-y-1 text-neutral-700">
+              <li>既存墓石への追記彫り対応</li>
+              <li>現地出張・回送いずれも相談可</li>
+              <li>手書き下書き＋彫刻</li>
+            </ul>
+          </div>
+          <div class="px-4 pb-4 mt-auto">
+            <div class="text-2xl font-bold text-emerald-700">要お見積り</div>
+          </div>
+        </div>
+        <!-- 神社寄進者名刻字 -->
+        <div class="rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden flex flex-col">
+          <div class="p-4 border-b bg-neutral-50">
+            <h3 class="font-semibold">神社の寄進者名刻字</h3>
+            <p class="text-sm text-neutral-500">石碑・鳥居・玉垣 など（石材は別業者）</p>
+          </div>
+          <div class="p-4 text-sm grow">
+            <ul class="list-disc pl-5 space-y-1 text-neutral-700">
+              <li>寄付者名・年号・社紋などに対応</li>
+              <li>現地調整・文字割付を職人が実施</li>
+              <li>石材の手配は提携業者をご紹介</li>
+            </ul>
+          </div>
+          <div class="px-4 pb-4 mt-auto">
+            <div class="text-2xl font-bold text-emerald-700">要お見積り</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Order Flow -->
+  <section id="order" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="jp-serif text-2xl md:text-3xl font-bold">ご注文の流れ</h2>
+      <ol class="mt-6 grid md:grid-cols-4 gap-5">
+        <li class="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
+          <div class="text-xs font-medium text-emerald-700">STEP 1</div>
+          <p class="mt-2 font-semibold">お問い合わせ</p>
+          <p class="text-sm text-neutral-600">サイズ・素材・ご要望をフォームで送信</p>
+        </li>
+        <li class="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
+          <div class="text-xs font-medium text-emerald-700">STEP 2</div>
+          <p class="mt-2 font-semibold">お見積り & ラフ</p>
+          <p class="text-sm text-neutral-600">手書きラフの雰囲気をご確認いただきます</p>
+        </li>
+        <li class="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
+          <div class="text-xs font-medium text-emerald-700">STEP 3</div>
+          <p class="mt-2 font-semibold">製作</p>
+          <p class="text-sm text-neutral-600">通常<span class="font-medium">7〜14日</span>程度（内容により前後）</p>
+        </li>
+        <li class="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
+          <div class="text-xs font-medium text-emerald-700">STEP 4</div>
+          <p class="mt-2 font-semibold">お受け取り</p>
+          <p class="text-sm text-neutral-600">店頭受取 / 宅配（全国対応）</p>
+        </li>
+      </ol>
+      <p class="mt-4 text-xs text-neutral-500">※急ぎのご依頼はフォームにてご相談ください。</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 md:py-24 bg-neutral-50">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="jp-serif text-2xl md:text-3xl font-bold">よくある質問</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-5">
+        <details class="rounded-xl border bg-white p-4">
+          <summary class="font-medium cursor-pointer">書体を指定できますか？</summary>
+          <p class="mt-2 text-sm text-neutral-700">手書き文字が当店の特徴ですので、フォント指定は承っておりません。すべて職人の手で丁寧に揮毫いたします。</p>
+        </details>
+        <details class="rounded-xl border bg-white p-4">
+          <summary class="font-medium cursor-pointer">取り付けは自分でできますか？</summary>
+          <p class="mt-2 text-sm text-neutral-700">両面テープ/ビス止めのガイドを同梱します。難しい場合は取付サポート（有料）もございます。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Access -->
+  <section id="access" class="py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="jp-serif text-2xl md:text-3xl font-bold">アクセス</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-6 items-start">
+        <div class="rounded-2xl overflow-hidden border border-neutral-200">
+          <div id="map" class="h-72 w-full"></div>
+        </div>
+        <div class="text-sm text-neutral-700">
+          <p class="font-medium">翠々亭（すいすいてい）</p>
+          <p class="mt-1">〒110-0004 東京都台東区下谷２丁目３−１７</p>
+          <p class="mt-1"><a href="https://maps.app.goo.gl/KYMvGyASHexBAYxLA" target="_blank" class="underline text-emerald-700">Googleマップで見る</a></p>
+          <p class="mt-1">営業時間：10:00-17:00（不定休）</p>
+          <p class="mt-1">電話：03-xxxx-xxxx / メール：info@example.jp</p>
+          <p class="mt-3">※石材が必要な案件は提携業者をご紹介します。</p>
+          <a href="#contact" class="inline-block mt-4 px-4 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700">見積り・来店予約</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-16 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-4">
+      <h2 class="jp-serif text-2xl md:text-3xl font-bold">お問い合わせ</h2>
+      <p class="mt-2 text-neutral-600">見積りは無料です。できるだけ詳細にご記入ください。</p>
+      <form class="mt-6 grid gap-4 text-sm" name="suisuitei-contact" netlify>
+        <input type="hidden" name="form-name" value="suisuitei-contact" />
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-neutral-600 mb-1">お名前</label>
+            <input name="name" required class="w-full rounded-xl border border-neutral-300 px-3 py-2" />
+          </div>
+          <div>
+            <label class="block text-neutral-600 mb-1">メール</label>
+            <input name="email" type="email" required class="w-full rounded-xl border border-neutral-300 px-3 py-2" />
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-neutral-600 mb-1">サイズ（mm）</label>
+            <input name="size" placeholder="例）150×150" class="w-full rounded-xl border border-neutral-300 px-3 py-2" />
+          </div>
+          <div>
+            <label class="block text-neutral-600 mb-1">素材</label>
+            <input name="material" placeholder="例）杉 / ヒノキ / 石刻 など" class="w-full rounded-xl border border-neutral-300 px-3 py-2" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-neutral-600 mb-1">表記するお名前</label>
+          <input name="nameplate_text" placeholder="例）翠々亭 / SUISUITEI" class="w-full rounded-xl border border-neutral-300 px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-neutral-600 mb-1">その他ご要望</label>
+          <textarea name="message" rows="4" class="w-full rounded-xl border border-neutral-300 px-3 py-2" placeholder="取付方法、納期、数量、参考画像のURLなど"></textarea>
+        </div>
+        <div class="flex items-center gap-3">
+          <button type="submit" class="px-5 py-3 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700">送信する</button>
+          <p class="text-xs text-neutral-500">※送信後、2営業日以内にご連絡します。</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="py-10 border-t border-neutral-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-neutral-500">© <span id="y"></span> 翠々亭 / SUISUITEI</p>
+      <div class="text-xs text-neutral-500">特定商取引法に基づく表記 / プライバシーポリシー</div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const btn = document.getElementById('menuBtn');
+    const nav = document.getElementById('mobileNav');
+    btn?.addEventListener('click', ()=> nav.classList.toggle('hidden'));
+
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Leaflet map（台東区下谷 付近座標）
+    const map = L.map('map', { scrollWheelZoom:false }).setView([35.720363692880454, 139.78310552138657], 16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19, attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+    L.marker([35.720363692880454, 139.78310552138657]).addTo(map).bindPopup('翠々亭');
+  </script>
+</body>
+</html>
